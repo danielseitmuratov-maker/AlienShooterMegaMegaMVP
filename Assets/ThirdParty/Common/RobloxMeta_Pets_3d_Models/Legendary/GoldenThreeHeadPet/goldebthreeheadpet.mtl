@@ -1,0 +1,14 @@
+newmtl Golden1Mtl
+Material Color
+Ka 0 0 0
+Kd 0 0 0
+Ks 0 0 0 
+
+d 1
+
+Ns 0
+
+map_Ka Golden1_diff.png
+map_Kd Golden1_diff.png
+map_d Golden1_diff.png
+

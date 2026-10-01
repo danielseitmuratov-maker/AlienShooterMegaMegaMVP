@@ -1,0 +1,14 @@
+newmtl Tier111Mtl
+Material Color
+Ka 0.373615 0.368591 0.383775
+Kd 0.373615 0.368591 0.383775
+Ks 0.373615 0.368591 0.383775 
+
+d 1
+
+Ns 0
+
+map_Ka Tier111_diff.png
+map_Kd Tier111_diff.png
+map_d Tier111_diff.png
+

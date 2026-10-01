@@ -1,0 +1,28 @@
+newmtl Flames1Mtl
+Material Color
+Ka 0.373615 0.368591 0.383775
+Kd 0.373615 0.368591 0.383775
+Ks 0.0234425 0.0231273 0.02408 
+
+d 1
+
+Ns 0
+
+map_Ka Flames1_diff.png
+map_Kd Flames1_diff.png
+map_d Flames1_diff.png
+
+newmtl Pet1Mtl
+Material Color
+Ka 0 0 0
+Kd 0 0 0
+Ks 0 0 0 
+
+d 1
+
+Ns 0
+
+map_Ka Pet1_diff.png
+map_Kd Pet1_diff.png
+map_d Pet1_diff.png
+

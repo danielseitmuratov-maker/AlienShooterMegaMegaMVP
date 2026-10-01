@@ -1,0 +1,28 @@
+newmtl Pet2Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.396078 0.396078 0.396078 
+
+d 1
+
+Ns 0
+
+map_Ka Pet2_diff.png
+map_Kd Pet2_diff.png
+map_d Pet2_diff.png
+
+newmtl Pet1Mtl
+Material Color
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.396078 0.396078 0.396078 
+
+d 1
+
+Ns 0
+
+map_Ka Pet1_diff.png
+map_Kd Pet1_diff.png
+map_d Pet1_diff.png
+
