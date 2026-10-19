@@ -89,7 +89,7 @@ namespace _Project.CodeBase.Runtime.Features.Dungeon.Locations
             {
                 DungeonGenerationResult result = await _generator.GenerateAsync(token);
                 token.ThrowIfCancellationRequested();
-
+                
                 if (result == null)
                     return;
 

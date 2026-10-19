@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading;
-using _Project.CodeBase.Runtime.Features.Dungeon.Data;
+using _Project.CodeBase.Runtime.Features.Dungeon.Components;
+using _Project.CodeBase.Runtime.Features.Dungeon.Data.Rooms;
 using _Project.CodeBase.Runtime.Features.Dungeon.Locations.Generations;
-using _Project.CodeBase.Runtime.Features.Dungeon.Rooms;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;

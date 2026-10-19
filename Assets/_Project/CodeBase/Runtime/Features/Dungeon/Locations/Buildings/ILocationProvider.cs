@@ -1,5 +1,5 @@
-using _Project.CodeBase.Runtime.Features.Dungeon.Data;
-using _Project.CodeBase.Runtime.Features.Dungeon.Rooms;
+using _Project.CodeBase.Runtime.Features.Dungeon.Components;
+using _Project.CodeBase.Runtime.Features.Dungeon.Data.Rooms;
 
 namespace _Project.CodeBase.Runtime.Features.Dungeon.Locations.Buildings
 {

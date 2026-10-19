@@ -1,4 +1,4 @@
-using _Project.CodeBase.Runtime.Features.Dungeon.Data;
+using _Project.CodeBase.Runtime.Features.Dungeon.Data.Rooms;
 using _Project.CodeBase.Runtime.Features.Player.Behaviours;
 using Cysharp.Threading.Tasks;
 

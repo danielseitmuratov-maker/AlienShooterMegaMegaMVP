@@ -1,4 +1,4 @@
-namespace _Project.CodeBase.Runtime.Features.Dungeon.Data
+namespace _Project.CodeBase.Runtime.Features.Dungeon.Data.Rooms
 {
     public enum RoomType
     {

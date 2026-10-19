@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using _Project.CodeBase.Infrastructure.Services.Random;
-using _Project.CodeBase.Runtime.Features.Dungeon.Data;
+using _Project.CodeBase.Runtime.Features.Dungeon.Data.Connections;
+using _Project.CodeBase.Runtime.Features.Dungeon.Data.Dungeon;
+using _Project.CodeBase.Runtime.Features.Dungeon.Data.Rooms;
 using UnityEngine;
 
 namespace _Project.CodeBase.Runtime.Features.Dungeon.Locations.Generations.Layout

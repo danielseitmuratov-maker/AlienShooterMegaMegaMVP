@@ -1,7 +1,7 @@
-using _Project.CodeBase.Runtime.Features.Dungeon.Rooms;
+using _Project.CodeBase.Runtime.Features.Dungeon.Components;
 using UnityEngine;
 
-namespace _Project.CodeBase.Runtime.Features.Dungeon.Data
+namespace _Project.CodeBase.Runtime.Features.Dungeon.Data.Rooms
 {
     public class RoomInstance
     {

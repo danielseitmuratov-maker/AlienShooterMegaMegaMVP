@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Threading;
 using _Project.CodeBase.Infrastructure.Services.Random;
-using _Project.CodeBase.Runtime.Features.Dungeon.Data;
-using _Project.CodeBase.Runtime.Features.Dungeon.Location;
+using _Project.CodeBase.Runtime.Features.Dungeon.Data.Dungeon;
+using _Project.CodeBase.Runtime.Features.Dungeon.Data.Rooms;
 using _Project.CodeBase.Runtime.Features.Dungeon.Locations.Buildings;
 using _Project.CodeBase.Runtime.Features.Dungeon.Locations.Generations.Layout;
 using _Project.CodeBase.Runtime.Features.Dungeon.Locations.Streaming;
@@ -32,13 +32,16 @@ namespace _Project.CodeBase.Runtime.Features.Dungeon.Locations.Generations
         public async UniTask<DungeonGenerationResult> GenerateAsync(CancellationToken token)
         {
             int seed = _randomService.Range(int.MinValue, int.MaxValue);
-            var context = new DungeonGenerationContext(seed, _config);
+            Debug.Log($"current seed : {seed}");
+            DungeonGenerationContext context = new DungeonGenerationContext(seed, _config);
 
             _layoutStrategy.Create(context);
+            
             if (!IsValidLayout(context.Layout))
                 return null;
 
             List<RoomInstance> rooms = await _builder.Build(context, token);
+            
             if (!IsValidRooms(rooms))
                 return null;
 
@@ -91,10 +94,8 @@ namespace _Project.CodeBase.Runtime.Features.Dungeon.Locations.Generations
         private RoomInstance FindStartRoom(List<RoomInstance> rooms, int startRoomId)
         {
             for (int i = 0; i < rooms.Count; i++)
-            {
                 if (rooms[i].RoomId == startRoomId)
                     return rooms[i];
-            }
 
             return null;
         }

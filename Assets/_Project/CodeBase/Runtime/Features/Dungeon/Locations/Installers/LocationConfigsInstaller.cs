@@ -1,4 +1,4 @@
-using _Project.CodeBase.Runtime.Features.Dungeon.Location;
+using _Project.CodeBase.Runtime.Features.Dungeon.Data.Dungeon;
 using _Project.CodeBase.Runtime.Features.Dungeon.Locations.Buildings;
 using _Project.CodeBase.Runtime.Features.Dungeon.Locations.Streaming;
 using UnityEngine;

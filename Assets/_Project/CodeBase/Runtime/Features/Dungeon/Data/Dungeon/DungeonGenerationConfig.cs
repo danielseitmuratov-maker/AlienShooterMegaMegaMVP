@@ -1,7 +1,7 @@
 using _Project.CodeBase.Runtime.Features.Dungeon.Locations.Generations.Layout;
 using UnityEngine;
 
-namespace _Project.CodeBase.Runtime.Features.Dungeon.Location
+namespace _Project.CodeBase.Runtime.Features.Dungeon.Data.Dungeon
 {
     [CreateAssetMenu(
         fileName = "DungeonGenerationConfig",
