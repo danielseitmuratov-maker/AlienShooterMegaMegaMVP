@@ -1,5 +1,5 @@
-using _Project.CodeBase.Runtime.Features.Camera;
 using _Project.CodeBase.Runtime.Features.Player.Behaviours;
+using KinematicCharacterController;
 using KinematicCharacterController.Examples;
 using UnityEngine;
 using Zenject;
@@ -8,32 +8,51 @@ namespace _Project.CodeBase.Runtime.Features.Player
 {
     public class PlayerInstaller : MonoInstaller
     {
-        [SerializeField] private ExampleCharacterController _controller;
-        [SerializeField] private Transform _cameraTransform;
+        [SerializeField] private Animator _animator;
 
         public override void InstallBindings()
         {
+            BindKccComponents();
             BindCoreComponents();
             BindFacade();
         }
 
+        private void BindKccComponents()
+        {
+            Container
+                .BindInterfacesAndSelfTo<KinematicCharacterMotor>()
+                .FromComponentsInHierarchy()
+                .AsSingle();
+
+            Container
+                .BindInterfacesAndSelfTo<ExampleCharacterController>()
+                .FromComponentsInHierarchy()
+                .AsSingle();
+        }
+
         private void BindFacade()
         {
-            Container.BindInterfacesAndSelfTo<PlayerFacade>().AsSingle();
+            Container
+                .BindInterfacesAndSelfTo<PlayerFacade>()
+                .FromComponentsInHierarchy()
+                .AsSingle();
         }
 
         private void BindCoreComponents()
         {
-            Container.Bind<ExampleCharacterController>().FromInstance(_controller).AsSingle();
-            
             Container
-                .Bind<ICameraProvider>()
-                .To<CameraProvider>()
-                .AsSingle()
-                .WithArguments(_cameraTransform);
+                .BindInterfacesAndSelfTo<PlayerMovement>()
+                .AsSingle();
 
-            Container.Bind<IPlayerMovement>().To<PlayerMovement>().AsSingle();
-            Container.Bind<IPlayerAnimator>().To<PlayerAnimator>().AsSingle();
+            Container
+                .BindInterfacesAndSelfTo<PlayerAnimator>()
+                .AsSingle()
+                .WithArguments(_animator);
+
+            Container
+                .Bind<IPlayerTeleporter>()
+                .To<PlayerTeleporter>()
+                .AsSingle();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using KinematicCharacterController;
 using System;
+using Zenject;
 
 namespace KinematicCharacterController.Examples
 {
@@ -40,7 +41,7 @@ namespace KinematicCharacterController.Examples
         TowardsGroundSlopeAndGravity,
     }
 
-    public class ExampleCharacterController : MonoBehaviour, ICharacterController
+    public class ExampleCharacterController : MonoBehaviour, ICharacterController, IInitializable
     {
         public KinematicCharacterMotor Motor;
 
@@ -88,8 +89,8 @@ namespace KinematicCharacterController.Examples
 
         private Vector3 lastInnerNormal = Vector3.zero;
         private Vector3 lastOuterNormal = Vector3.zero;
-
-        private void Awake()
+        
+        public void Initialize()
         {
             // Handle initial state
             TransitionToState(CharacterState.Default);

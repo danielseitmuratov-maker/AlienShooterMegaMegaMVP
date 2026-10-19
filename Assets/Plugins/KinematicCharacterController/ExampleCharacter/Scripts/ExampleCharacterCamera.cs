@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace KinematicCharacterController.Examples
 {
-    public class ExampleCharacterCamera : MonoBehaviour
+    public class ExampleCharacterCamera : MonoBehaviour ,IInitializable
     {
         [Header("Framing")]
         public Camera Camera;
@@ -61,7 +62,7 @@ namespace KinematicCharacterController.Examples
             DefaultVerticalAngle = Mathf.Clamp(DefaultVerticalAngle, MinVerticalAngle, MaxVerticalAngle);
         }
 
-        void Awake()
+        public void Initialize()
         {
             Transform = this.transform;
 

@@ -1,3 +1,4 @@
+
 using System;
 using _Project.CodeBase.Runtime.Common.Extensions;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace _Project.CodeBase.Infrastructure.Services.Input
             _input.Player.Crouch.canceled += context => CrouchCanceled?.Invoke();
             _input.Player.Attack.performed += context => AttackPerformed?.Invoke();
         }
-        
+
 
         public Vector2 ReadMovement()
         {
@@ -43,6 +44,28 @@ namespace _Project.CodeBase.Infrastructure.Services.Input
                 _input.Player.Move.ReadValue<Vector2>();
 
             Debug.LogError($"Error while reading player movement input from {this} class");
+
+            return Vector2.zero;
+        }
+
+        public Vector2 ReadZoom()
+        {
+            if (_input.IsNotNull())
+                
+                return _input.Player.Zoom.ReadValue<Vector2>();
+            
+            Debug.LogError($"Error while reading player zoom input from {this} class");
+
+            return Vector2.zero;
+        }
+
+        public Vector2 ReadCameraRotation()
+        {
+            if (_input.IsNotNull())
+                
+                return _input.Player.CameraRotation.ReadValue<Vector2>();
+            
+            Debug.LogError($"Error while reading player read camera rotaion input from {this} class");
 
             return Vector2.zero;
         }

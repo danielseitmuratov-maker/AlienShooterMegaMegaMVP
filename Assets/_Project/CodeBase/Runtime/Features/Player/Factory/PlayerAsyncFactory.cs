@@ -1,4 +1,3 @@
-using System;
 using _Project.CodeBase.Configs.Player;
 using _Project.CodeBase.Runtime.Features.Player.Behaviours;
 using Cysharp.Threading.Tasks;
@@ -11,6 +10,7 @@ namespace _Project.CodeBase.Runtime.Features.Player.Factory
     {
         private readonly IInstantiator _instantiator;
         private readonly PlayerRootConfig _config;
+        private IPlayerAsyncFactory _playerAsyncFactoryImplementation;
 
 
         public PlayerAsyncFactory(IInstantiator instantiator, PlayerRootConfig config)
@@ -19,13 +19,11 @@ namespace _Project.CodeBase.Runtime.Features.Player.Factory
             _config = config;
         }
 
-        public async UniTask<IPlayerFacade> Create(Vector3 at, Quaternion rotation, Transform parent = null,
-            Action callback = null)
+        public async UniTask<IPlayerFacade> Create(Vector3 at, Quaternion startRotation, Transform parent = null)
         {
             PlayerFacade player =
-                _instantiator.InstantiatePrefabForComponent<PlayerFacade>(_config.Prefab, at, rotation, parent);
+                _instantiator.InstantiatePrefabForComponent<PlayerFacade>(_config.Prefab, at, startRotation, parent);
 
-            callback?.Invoke();
             await player.InitializeAsync();
 
             return player;

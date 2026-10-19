@@ -1,4 +1,3 @@
-using Mono.Cecil;
 
 namespace _Project.CodeBase.Runtime.Common.Extensions
 {
@@ -7,6 +6,13 @@ namespace _Project.CodeBase.Runtime.Common.Extensions
         public static bool IsNotNull(this object obj)
         {
             if (obj != null)
+                return true;
+            return false;
+        }
+
+        public static bool IsNull(this object obj)
+        {
+            if (obj == null)
                 return true;
             return false;
         }

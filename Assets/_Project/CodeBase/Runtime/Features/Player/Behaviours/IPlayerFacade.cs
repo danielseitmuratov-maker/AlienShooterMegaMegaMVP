@@ -8,5 +8,8 @@ namespace _Project.CodeBase.Runtime.Features.Player.Behaviours
         UniTask InitializeAsync();
 
         Transform Transform { get; }
+        Transform CameraFollowPointTransform { get; }
+
+        UniTask TeleportAsync(Vector3 to,float delay = 0.5f);
     }
 }

@@ -6,5 +6,6 @@ namespace _Project.CodeBase.Configs.Player
     public class PlayerMovementConfig : ScriptableObject
     {
         [field: SerializeField] public float MaxMoveSped { get; private set; }
+        [field: SerializeField] public float MoveSpeed { get; private set; }
     }
 }

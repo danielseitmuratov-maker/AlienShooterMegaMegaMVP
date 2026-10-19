@@ -8,17 +8,17 @@ namespace _Project.CodeBase.Infrastructure.GameStates
 {
     public sealed class GameStateMachine : IGameStateMachine
     {
+        private readonly IGameStateFactory _factory;
         public event Action<IGameState> TransitionStarted;
         public event Action<IGameState> TransitionFinished;
 
         public IGameState Current { get; private set; }
 
-        private readonly DiContainer _container;
         private bool _isTransitioning;
 
-        public GameStateMachine(DiContainer container)
+        public GameStateMachine(IGameStateFactory factory)
         {
-            _container = container;
+            _factory = factory;
         }
 
         public async UniTask Enter<TState>(float delay = 0f) where TState : IGameState
@@ -33,7 +33,7 @@ namespace _Project.CodeBase.Infrastructure.GameStates
             
             try
             {
-                TState next = _container.Resolve<TState>();
+                TState next = _factory.Create<TState>();
                 Debug.Log(next.GetType().Name);
 
                 TransitionStarted?.Invoke(next);
