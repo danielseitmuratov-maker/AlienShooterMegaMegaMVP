@@ -1,5 +1,4 @@
-using _Project.CodeBase.Configs.Camera;
-using _Project.CodeBase.Configs.Player;
+using _Project.CodeBase.Runtime.Features.Player.Data;
 using UnityEngine;
 using Zenject;
 

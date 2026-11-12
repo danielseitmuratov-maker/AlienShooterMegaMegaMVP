@@ -15,11 +15,10 @@ namespace _Project.CodeBase.Runtime.Features.Player.Behaviours
         
         public async UniTask TeleportAsync(Vector3 to, float delay = 0.5f)
         {
-            if (delay > 0)
-            {
+            if (delay > 0) 
                 await UniTask.Delay(TimeSpan.FromSeconds(delay));
-                _movement.Warp(to);
-            }
+
+            _movement.Warp(to);
         }
     }
 }

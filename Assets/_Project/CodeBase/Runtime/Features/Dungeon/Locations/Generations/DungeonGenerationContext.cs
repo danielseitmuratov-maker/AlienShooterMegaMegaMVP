@@ -27,7 +27,7 @@ namespace _Project.CodeBase.Runtime.Features.Dungeon.Locations.Generations
             {
                 Seed = seed,
                 Rooms = new List<RoomNode>(),
-                Connections = new List<Connection>(),
+                Connections = new List<ConnectionNode>(),
                 StartRoomId = -1,
             };
         }

@@ -20,10 +20,8 @@ namespace _Project.CodeBase.Infrastructure.Installers
             BindRandomService();
         }
 
-        private void BindRandomService()
-        {
+        private void BindRandomService() => 
             Container.Bind<IRandomService>().To<UnityRandomService>().AsSingle();
-        }
 
         private void BindTimeService() =>
             Container.Bind<ITimeService>().To<UnityTimeService>().AsSingle();

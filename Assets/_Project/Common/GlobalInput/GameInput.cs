@@ -190,6 +190,15 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EquipFragment"",
+                    ""type"": ""Button"",
+                    ""id"": ""4d5d543a-2f5d-47c8-90e9-157b0573619a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -619,6 +628,17 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CameraRotation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fd704e18-8f58-4186-83c3-998bbf8b979f"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EquipFragment"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1217,6 +1237,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
         m_Player_CameraRotation = m_Player.FindAction("CameraRotation", throwIfNotFound: true);
+        m_Player_EquipFragment = m_Player.FindAction("EquipFragment", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1321,6 +1342,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Zoom;
     private readonly InputAction m_Player_CameraRotation;
+    private readonly InputAction m_Player_EquipFragment;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1376,6 +1398,10 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/CameraRotation".
         /// </summary>
         public InputAction @CameraRotation => m_Wrapper.m_Player_CameraRotation;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/EquipFragment".
+        /// </summary>
+        public InputAction @EquipFragment => m_Wrapper.m_Player_EquipFragment;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1435,6 +1461,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @CameraRotation.started += instance.OnCameraRotation;
             @CameraRotation.performed += instance.OnCameraRotation;
             @CameraRotation.canceled += instance.OnCameraRotation;
+            @EquipFragment.started += instance.OnEquipFragment;
+            @EquipFragment.performed += instance.OnEquipFragment;
+            @EquipFragment.canceled += instance.OnEquipFragment;
         }
 
         /// <summary>
@@ -1479,6 +1508,9 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @CameraRotation.started -= instance.OnCameraRotation;
             @CameraRotation.performed -= instance.OnCameraRotation;
             @CameraRotation.canceled -= instance.OnCameraRotation;
+            @EquipFragment.started -= instance.OnEquipFragment;
+            @EquipFragment.performed -= instance.OnEquipFragment;
+            @EquipFragment.canceled -= instance.OnEquipFragment;
         }
 
         /// <summary>
@@ -1856,6 +1888,13 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCameraRotation(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "EquipFragment" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnEquipFragment(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

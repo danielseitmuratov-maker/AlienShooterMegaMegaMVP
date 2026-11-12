@@ -1,8 +1,6 @@
 using System;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Zenject;
 
 namespace _Project.CodeBase.Infrastructure.GameStates
 {
@@ -53,7 +51,7 @@ namespace _Project.CodeBase.Infrastructure.GameStates
             }
         }
 
-        private async Task TransitTo<TState>( TState next,float delay) where TState : IGameState
+        private async UniTask TransitTo<TState>( TState next,float delay) where TState : IGameState
         {
             if (delay > 0f)
                 await UniTask.Delay(TimeSpan.FromSeconds(delay));

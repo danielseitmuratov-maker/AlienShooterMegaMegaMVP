@@ -1,5 +1,4 @@
 using System;
-using _Project.CodeBase.Configs.Camera;
 using _Project.CodeBase.Runtime.Features.Player.Behaviours;
 using UnityEngine;
 using Zenject;
@@ -14,7 +13,8 @@ namespace _Project.CodeBase.Runtime.Features.Camera.Behaviours
 
         private Vector3 _velocity;
 
-        public CameraFollowController(ICameraProvider cameraProvider, IPlayerProvider playerProvider, CameraFollowConfig config)
+        public CameraFollowController(ICameraProvider cameraProvider, IPlayerProvider playerProvider,
+            CameraFollowConfig config)
         {
             _cameraProvider = cameraProvider;
             _playerProvider = playerProvider;
@@ -22,19 +22,19 @@ namespace _Project.CodeBase.Runtime.Features.Camera.Behaviours
         }
 
 
-        public void Initialize() => 
+        public void Initialize() =>
             SubscribeToEvents();
 
-        private void SubscribeToEvents() => 
+        private void SubscribeToEvents() =>
             _playerProvider.Changed += OnPlayerChanged;
 
-        private void UnsubscribeFromEvents() => 
+        private void UnsubscribeFromEvents() =>
             _playerProvider.Changed -= OnPlayerChanged;
 
         public void LateTick()
         {
             IPlayerFacade player = _playerProvider.Current;
-            
+
             if (player == null)
                 return;
 
@@ -44,10 +44,10 @@ namespace _Project.CodeBase.Runtime.Features.Camera.Behaviours
                 _cameraProvider.Transform.position, target, ref _velocity, _config.SmoothTime);
         }
 
-        private void OnPlayerChanged(IPlayerFacade player) => 
+        private void OnPlayerChanged(IPlayerFacade player) =>
             RefreshVelocity();
 
-        private void RefreshVelocity() => 
+        private void RefreshVelocity() =>
             _velocity = Vector3.zero;
 
         public void Dispose()

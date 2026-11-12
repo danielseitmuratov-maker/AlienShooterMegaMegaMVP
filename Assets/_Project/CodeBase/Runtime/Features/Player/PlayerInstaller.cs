@@ -14,7 +14,16 @@ namespace _Project.CodeBase.Runtime.Features.Player
         {
             BindKccComponents();
             BindCoreComponents();
+            BindAssemblyComponents();
             BindFacade();
+        }
+
+        private void BindAssemblyComponents()
+        {
+            Container
+                .BindInterfacesAndSelfTo<PlayerFragmentsEquipper>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void BindKccComponents()

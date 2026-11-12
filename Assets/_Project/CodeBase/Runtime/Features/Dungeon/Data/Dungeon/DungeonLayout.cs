@@ -8,7 +8,7 @@ namespace _Project.CodeBase.Runtime.Features.Dungeon.Data.Dungeon
     {
         public int Seed;
         public List<RoomNode> Rooms;
-        public List<Connection> Connections;
+        public List<ConnectionNode> Connections;
         public int StartRoomId;
         public int BossRoomId;
     }

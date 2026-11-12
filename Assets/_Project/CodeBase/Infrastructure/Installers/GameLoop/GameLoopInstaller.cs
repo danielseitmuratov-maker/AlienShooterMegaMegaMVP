@@ -1,5 +1,9 @@
 using _Project.CodeBase.Infrastructure.GameStates;
 using _Project.CodeBase.Runtime.Features.Camera.Behaviours;
+using _Project.CodeBase.Runtime.Features.CharacterAssembly.Assembly;
+using _Project.CodeBase.Runtime.Features.CharacterAssembly.Equip;
+using _Project.CodeBase.Runtime.Features.CharacterAssembly.Events;
+using _Project.CodeBase.Runtime.Features.CharacterAssembly.Presentation;
 using _Project.CodeBase.Runtime.Features.Levels;
 using _Project.CodeBase.Runtime.Features.Player.Behaviours;
 using _Project.CodeBase.Runtime.Features.Player.Factory;
@@ -14,11 +18,33 @@ namespace _Project.CodeBase.Infrastructure.Installers.GameLoop
 
         public override void InstallBindings()
         {
+            BindAssemblyFeatures();
+            
             BindFactories();
+            
             BindGameStateMachine();
             BindLevelController();
             BindPlayerProvider();
             BindCamera();
+
+            BindPlayerSpawner();
+        }
+
+
+        private void BindAssemblyFeatures()
+        {
+            Container.Bind<ICharacterAssembler>().To<CharacterAssembler>().AsSingle();
+            Container.Bind<ICharacterDisassembler>().To<CharacterDisassembler>().AsSingle();
+            
+            Container.Bind<ICharacterAssemblyEvents>().To<CharacterAssemblyEvents>().AsSingle();
+            Container.Bind<IFragmentEquipService>().To<FragmentEquipService>().AsSingle();
+
+            Container.Bind<IFragmentSelectionService>().To<FragmentSelectionService>().AsSingle();
+            
+            Container
+                .BindInterfacesAndSelfTo<FragmentEquipAnimator>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void BindLevelController()
@@ -56,5 +82,8 @@ namespace _Project.CodeBase.Infrastructure.Installers.GameLoop
                 .AsSingle()
                 .NonLazy();
         }
+
+        private void BindPlayerSpawner() => 
+            Container.Bind<IPlayerSpawner>().To<PlayerSpawner>().AsSingle();
     }
 }

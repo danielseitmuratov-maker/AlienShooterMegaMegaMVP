@@ -1,9 +1,9 @@
 using System;
-using _Project.CodeBase.Configs.Player;
 using _Project.CodeBase.Infrastructure.Services.Input;
 using _Project.CodeBase.Infrastructure.Services.Time;
 using _Project.CodeBase.Runtime.Common.Extensions;
 using _Project.CodeBase.Runtime.Features.Camera.Behaviours;
+using _Project.CodeBase.Runtime.Features.Player.Data;
 using KinematicCharacterController.Examples;
 using UnityEngine;
 using Zenject;

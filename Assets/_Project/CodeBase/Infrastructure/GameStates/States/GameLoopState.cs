@@ -1,6 +1,11 @@
+using System;
+using System.Collections.Generic;
+using System.Threading;
 using _Project.CodeBase.Configs.Game;
+using _Project.CodeBase.Runtime.Common.Extensions;
+using _Project.CodeBase.Runtime.Features.CharacterAssembly.Data.Character;
+using _Project.CodeBase.Runtime.Features.CharacterAssembly.Runtime;
 using _Project.CodeBase.Runtime.Features.Player.Behaviours;
-using _Project.CodeBase.Runtime.Features.Player.Factory;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -8,42 +13,65 @@ namespace _Project.CodeBase.Infrastructure.GameStates.States
 {
     public class GameLoopState : IGameState
     {
-        private readonly IPlayerAsyncFactory _playerAsyncFactory;
-        private readonly IPlayerProvider _playerProvider;
+        private readonly IPlayerSpawner _playerSpawner;
+        private readonly AssemblyCharacterConfig _assemblyConfig;
         private readonly GameLoopConfig _config;
 
         private IPlayerFacade _player;
+        private CancellationTokenSource _cts;
 
-        public GameLoopState(IPlayerAsyncFactory playerAsyncFactory, IPlayerProvider playerProvider,
+        public GameLoopState(IPlayerSpawner playerSpawner, AssemblyCharacterConfig assemblyConfig,
             GameLoopConfig config)
         {
-            _playerAsyncFactory = playerAsyncFactory;
-            _playerProvider = playerProvider;
+            _playerSpawner = playerSpawner;
+            _assemblyConfig = assemblyConfig;
             _config = config;
         }
 
         public async UniTask Enter()
         {
-            _player = await SpawnPlayer(); 
-            await _player.TeleportAsync(_config.StartPlayerPosition);
-        }
+            _cts = new CancellationTokenSource();
 
-        private async UniTask<IPlayerFacade> SpawnPlayer()
-        {
-            Quaternion startPlayerRotation = Quaternion.Euler(_config.StartPlayerRotation);
+            try
+            {
+                Quaternion rotation = Quaternion.Euler(_config.StartPlayerRotation);
+                IReadOnlyList<FragmentInstance> fragments = GetStartingFragments();
 
-            IPlayerFacade playerFacade =
-                await _playerAsyncFactory.Create(Vector3.zero, startPlayerRotation);
+                _player = await _playerSpawner.SpawnAsync(
+                    _assemblyConfig,
+                    fragments,
+                    _config.StartPlayerPosition,
+                    rotation,
+                    _cts.Token);
 
-            _playerProvider.Set(playerFacade);
-
-            return playerFacade;
+                if (_player.IsNull())
+                    Debug.LogError("[GameLoopState] Player spawn failed.");
+            }
+            catch (OperationCanceledException)
+            {
+                _player = null;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                _player = null;
+            }
         }
 
         public async UniTask Exit()
         {
-            _playerProvider.Clear();
-            await UniTask.CompletedTask;
+            _cts?.Cancel();
+            _cts?.Dispose();
+            _cts = null;
+
+            if (_player.IsNotNull())
+            {
+                await _playerSpawner.DespawnAsync(_player, default);
+                _player = null;
+            }
         }
+
+        private IReadOnlyList<FragmentInstance> GetStartingFragments() => 
+            Array.Empty<FragmentInstance>();
     }
 }

@@ -15,10 +15,10 @@ MonoBehaviour:
   <CellSize>k__BackingField: 1
   <Rooms>k__BackingField:
   - Type: 0
-    Prefab: {fileID: 8023941771320103396, guid: 358b66e110cd6432aae023dec1323013, type: 3}
+    Prefab: {fileID: 1790004749962080774, guid: 358b66e110cd6432aae023dec1323013, type: 3}
   - Type: 2
-    Prefab: {fileID: 8023941771320103396, guid: 358b66e110cd6432aae023dec1323013, type: 3}
+    Prefab: {fileID: 1790004749962080774, guid: 358b66e110cd6432aae023dec1323013, type: 3}
   - Type: 1
-    Prefab: {fileID: 8023941771320103396, guid: 358b66e110cd6432aae023dec1323013, type: 3}
+    Prefab: {fileID: 1790004749962080774, guid: 358b66e110cd6432aae023dec1323013, type: 3}
   - Type: 3
-    Prefab: {fileID: 8023941771320103396, guid: 358b66e110cd6432aae023dec1323013, type: 3}
+    Prefab: {fileID: 1790004749962080774, guid: 358b66e110cd6432aae023dec1323013, type: 3}

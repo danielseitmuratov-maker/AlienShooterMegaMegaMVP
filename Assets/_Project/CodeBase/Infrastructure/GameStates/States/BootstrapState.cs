@@ -17,7 +17,7 @@ namespace _Project.CodeBase.Infrastructure.GameStates.States
 
         public async UniTask Exit()
         {
-            
+            await UniTask.Delay(1000);
         }
     }
 }

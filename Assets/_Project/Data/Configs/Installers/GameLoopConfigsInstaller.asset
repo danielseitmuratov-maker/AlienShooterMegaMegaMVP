@@ -15,3 +15,5 @@ MonoBehaviour:
   _gameLoopConfig: {fileID: 11400000, guid: 2d7335aff6585469cb4b54b8df33fbdb, type: 2}
   _playerRootConfig: {fileID: 11400000, guid: 08ee6e98885c14a17933fdeee3740ebe, type: 2}
   _cameraFollow: {fileID: 11400000, guid: 702553b4be7364356b66da8917609a53, type: 2}
+  _assemblyCharacter: {fileID: 11400000, guid: adf34cab4a9bf4892ad37b64a36994f7, type: 2}
+  _equipAnimationConfigs: {fileID: 11400000, guid: 1bcf25a41f67842ffb0e8ff22a6ab84d, type: 2}

@@ -11,6 +11,8 @@ namespace _Project.CodeBase.Infrastructure.Services.Input
         public event Action JumpCancelled;
         public event Action CrouchPerformed;
         public event Action CrouchCanceled;
+        public event Action EquipFragmentPerformed;
+        public event Action EquipFragmentCancelled;
 
         private GameInput _input;
 
@@ -35,6 +37,9 @@ namespace _Project.CodeBase.Infrastructure.Services.Input
                 _input.Player.Crouch.performed += context => CrouchPerformed?.Invoke();
                 _input.Player.Crouch.canceled += context => CrouchCanceled?.Invoke();
                 _input.Player.Attack.performed += context => AttackPerformed?.Invoke();
+
+                _input.Player.EquipFragment.performed += context => EquipFragmentPerformed?.Invoke();
+                _input.Player.EquipFragment.canceled += context => EquipFragmentCancelled?.Invoke();
             }
         }
 

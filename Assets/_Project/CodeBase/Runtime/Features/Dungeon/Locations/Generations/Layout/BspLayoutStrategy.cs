@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using _Project.CodeBase.Infrastructure.Services.Random;
-using _Project.CodeBase.Runtime.Features.Dungeon.Data.Connections;
 using _Project.CodeBase.Runtime.Features.Dungeon.Data.Dungeon;
 using _Project.CodeBase.Runtime.Features.Dungeon.Data.Rooms;
 using UnityEngine;
@@ -122,13 +121,6 @@ namespace _Project.CodeBase.Runtime.Features.Dungeon.Locations.Generations.Layou
         {
             a.Connections.Add(b.Id);
             b.Connections.Add(a.Id);
-
-            ctx.Layout.Connections.Add(new Connection
-            {
-                FromRoomId = a.Id,
-                ToRoomId = b.Id,
-                Length = Vector2Int.Distance(a.GridPosition, b.GridPosition)
-            });
         }
 
         private void AssignStartRoom(BspContext ctx)

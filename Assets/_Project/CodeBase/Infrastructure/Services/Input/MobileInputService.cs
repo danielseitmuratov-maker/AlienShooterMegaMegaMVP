@@ -12,6 +12,8 @@ namespace _Project.CodeBase.Infrastructure.Services.Input
         public event Action JumpCancelled;
         public event Action CrouchPerformed;
         public event Action CrouchCanceled;
+        public event Action EquipFragmentPerformed;
+        public event Action EquipFragmentCancelled;
 
         private GameInput _input;
 

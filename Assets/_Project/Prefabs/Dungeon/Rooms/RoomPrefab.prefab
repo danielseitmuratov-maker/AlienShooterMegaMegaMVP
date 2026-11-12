@@ -342,7 +342,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7912843854257861581}
-  - component: {fileID: 8023941771320103396}
+  - component: {fileID: 1790004749962080774}
   m_Layer: 6
   m_Name: RoomPrefab
   m_TagString: Untagged
@@ -370,7 +370,7 @@ Transform:
   - {fileID: 3169440632869718219}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8023941771320103396
+--- !u!114 &1790004749962080774
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -379,9 +379,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4228230851705620544}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a5c997c543846a296b27008f41e1970, type: 3}
+  m_Script: {fileID: 11500000, guid: 554628f703a64bd7aaa79a78e5df6309, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Runtime.Features.Dungeon.Rooms.RoomBasic
+  m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Runtime.Features.Dungeon.Components.RoomBasic
 --- !u!1 &4840372343574124708
 GameObject:
   m_ObjectHideFlags: 0

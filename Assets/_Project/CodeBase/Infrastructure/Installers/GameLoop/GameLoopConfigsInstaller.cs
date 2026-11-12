@@ -1,7 +1,9 @@
 using _Project.CodeBase.Common.Attributes;
-using _Project.CodeBase.Configs.Camera;
 using _Project.CodeBase.Configs.Game;
-using _Project.CodeBase.Configs.Player;
+using _Project.CodeBase.Runtime.Features.Camera.Behaviours;
+using _Project.CodeBase.Runtime.Features.CharacterAssembly.Data.Character;
+using _Project.CodeBase.Runtime.Features.CharacterAssembly.Presentation;
+using _Project.CodeBase.Runtime.Features.Player.Data;
 using UnityEngine;
 using Zenject;
 
@@ -19,12 +21,19 @@ namespace _Project.CodeBase.Infrastructure.Installers.GameLoop
         [Required(nameof(GameLoopConfigsInstaller) + " camera follow config is null")]
         [SerializeField] private CameraFollowConfig _cameraFollow;
         
+        [Required(nameof(GameLoopConfigsInstaller) + "assembly character config is null")]
+        [SerializeField] private AssemblyCharacterConfig _assemblyCharacter;
+        
+        [Required(nameof(GameLoopConfigsInstaller) + "assembly equip animations config is null")]
+        [SerializeField] private EquipAnimationConfigsConfig _equipAnimationConfigs;
 
         public override void InstallBindings()
         {
             BindSingleConfig(_gameLoopConfig);
             BindSingleConfig(_playerRootConfig);
             BindSingleConfig(_cameraFollow);
+            BindSingleConfig(_assemblyCharacter);
+            BindSingleConfig(_equipAnimationConfigs);
         }
 
         private void BindSingleConfig<TConfig>(TConfig config) where TConfig : ScriptableObject => 

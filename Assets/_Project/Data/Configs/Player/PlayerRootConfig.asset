@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbaf7a75f4a54b9eb4a9ad16e171e410, type: 3}
+  m_Script: {fileID: 11500000, guid: 1882505473e54bb7bc77c5d49e52ec16, type: 3}
   m_Name: PlayerRootConfig
   m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Configs.Player.PlayerRootConfig
   <Prefab>k__BackingField: {fileID: 7664037342572833981, guid: 5e52f705fdd794f56b582747e06599f9, type: 3}

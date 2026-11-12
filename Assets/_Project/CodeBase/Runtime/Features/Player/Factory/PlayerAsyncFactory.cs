@@ -1,5 +1,5 @@
-using _Project.CodeBase.Configs.Player;
 using _Project.CodeBase.Runtime.Features.Player.Behaviours;
+using _Project.CodeBase.Runtime.Features.Player.Data;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
