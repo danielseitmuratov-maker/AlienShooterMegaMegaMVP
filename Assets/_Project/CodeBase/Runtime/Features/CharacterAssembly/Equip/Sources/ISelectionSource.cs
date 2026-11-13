@@ -11,7 +11,6 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Equip.Sources
     }
 }
 
-
 namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Equip.Sources
 {
 }

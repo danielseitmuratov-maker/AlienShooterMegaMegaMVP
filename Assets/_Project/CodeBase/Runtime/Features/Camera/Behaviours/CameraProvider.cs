@@ -4,15 +4,19 @@ namespace _Project.CodeBase.Runtime.Features.Camera.Behaviours
 {
     public class CameraProvider : ICameraProvider
     {
-        public Transform Transform => _transform;
-        public Quaternion Rotation => _transform.rotation;
+        public Transform Transform => 
+            _camera != null ? _camera.transform : UnityEngine.Camera.current.transform;
+        public Quaternion Rotation => 
+            _camera != null ? _camera.transform.rotation : UnityEngine.Camera.current.transform.rotation;
+        
+        public UnityEngine.Camera Current =>
+            _camera != null ? _camera : UnityEngine.Camera.current;
 
-        private Transform _transform;
+        private readonly UnityEngine.Camera _camera;
 
-        public CameraProvider(Transform transform)
+        public CameraProvider(UnityEngine.Camera camera)
         {
-            _transform = transform;
+            _camera = camera;
         }
     }
 }
-

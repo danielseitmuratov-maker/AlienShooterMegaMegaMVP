@@ -14,18 +14,18 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Equip.Sources.Imp
         private readonly UnityEngine.Camera _camera;
         private readonly LayerMask _bodyLayer;
 
-        public WorldSlotSelectionSource(
-            IInputService inputService,
-            UnityEngine.Camera camera,
-            LayerMask bodyLayer)
+        public WorldSlotSelectionSource(IInputService inputService, UnityEngine.Camera camera, LayerMask bodyLayer)
         {
             _inputService = inputService;
             _camera = camera;
             _bodyLayer = bodyLayer;
         }
 
-        public void Enable() => _inputService.ClickPerformed += OnClick;
-        public void Disable() => _inputService.ClickPerformed -= OnClick;
+        public void Enable() => 
+            _inputService.ClickPerformed += OnClick;
+        
+        public void Disable() =>
+            _inputService.ClickPerformed -= OnClick;
 
         private void OnClick()
         {

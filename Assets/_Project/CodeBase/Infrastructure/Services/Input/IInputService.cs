@@ -14,7 +14,8 @@ namespace _Project.CodeBase.Infrastructure.Services.Input
         event Action EquipFragmentCancelled;
 
         event Action ClickPerformed;
-        
+        Vector3 PointerPosition { get;}
+
 
         Vector2 ReadMovement();
         Vector2 ReadZoom();

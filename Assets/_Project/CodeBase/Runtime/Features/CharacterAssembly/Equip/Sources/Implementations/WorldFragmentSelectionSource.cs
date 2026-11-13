@@ -1,5 +1,6 @@
 using System;
 using _Project.CodeBase.Infrastructure.Services.Input;
+using _Project.CodeBase.Runtime.Features.Camera.Behaviours;
 using _Project.CodeBase.Runtime.Features.CharacterAssembly.Runtime;
 using UnityEngine;
 
@@ -12,28 +13,24 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Equip.Sources.Imp
         private const float MaxDistance = 100f;
 
         private readonly IInputService _inputService;
-        private readonly UnityEngine.Camera _camera;
+        private readonly ICameraProvider _cameraProvider;
         private readonly LayerMask _fragmentLayer;
 
-        public WorldFragmentSelectionSource(
-            IInputService inputService,
-            UnityEngine.Camera camera,
+        public WorldFragmentSelectionSource(IInputService inputService, ICameraProvider cameraProvider,
             LayerMask fragmentLayer)
         {
             _inputService = inputService;
-            _camera = camera;
+            _cameraProvider = cameraProvider;
             _fragmentLayer = fragmentLayer;
         }
 
-        public void Enable() => 
+        public void Enable() =>
             _inputService.ClickPerformed += OnClick;
         
-        public void Disable() => 
-            _inputService.ClickPerformed -= OnClick;
 
         private void OnClick()
         {
-            Ray ray = _camera.ScreenPointToRay(_inputService.PointerPosition);
+            Ray ray = _cameraProvider.Current.ScreenPointToRay(_inputService.PointerPosition);
 
             if (!Physics.Raycast(ray, out RaycastHit hit, MaxDistance, _fragmentLayer))
                 return;
@@ -43,5 +40,8 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Equip.Sources.Imp
 
             Selected?.Invoke(drop.Fragment);
         }
+        
+        public void Disable() =>
+            _inputService.ClickPerformed -= OnClick;
     }
 }

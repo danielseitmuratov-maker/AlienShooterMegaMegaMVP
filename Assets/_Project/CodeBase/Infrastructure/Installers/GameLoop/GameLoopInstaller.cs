@@ -15,7 +15,7 @@ namespace _Project.CodeBase.Infrastructure.Installers.GameLoop
 {
     public class GameLoopInstaller : MonoInstaller
     {
-        [SerializeField] private Transform _cameraTransform;
+        [SerializeField] private Camera _camera;
 
         public override void InstallBindings()
         {
@@ -76,7 +76,7 @@ namespace _Project.CodeBase.Infrastructure.Installers.GameLoop
                 .Bind<ICameraProvider>()
                 .To<CameraProvider>()
                 .AsSingle()
-                .WithArguments(_cameraTransform);
+                .WithArguments(_camera);
 
             Container
                 .BindInterfacesAndSelfTo<CameraFollowController>()

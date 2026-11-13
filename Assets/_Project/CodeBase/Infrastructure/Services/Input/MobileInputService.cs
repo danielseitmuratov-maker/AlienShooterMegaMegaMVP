@@ -1,7 +1,7 @@
-
 using System;
 using _Project.CodeBase.Runtime.Common.Extensions;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace _Project.CodeBase.Infrastructure.Services.Input
 {
@@ -16,8 +16,10 @@ namespace _Project.CodeBase.Infrastructure.Services.Input
         public event Action EquipFragmentCancelled;
         public event Action ClickPerformed;
 
-        private GameInput _input;
+        public Vector3 PointerPosition =>
+            Pointer.current != null ? (Vector3) Pointer.current.position.ReadValue() : Vector3.zero;
 
+        private GameInput _input;
 
         public MobileInputService()
         {
@@ -33,6 +35,8 @@ namespace _Project.CodeBase.Infrastructure.Services.Input
 
         private void SubscribeToEvents()
         {
+            if (_input.IsNull()) return;
+
             _input.Player.Jump.performed += context => JumpPerformed?.Invoke();
             _input.Player.Jump.canceled += context => JumpCancelled?.Invoke();
             _input.Player.Crouch.performed += context => CrouchPerformed?.Invoke();
@@ -41,38 +45,34 @@ namespace _Project.CodeBase.Infrastructure.Services.Input
 
             _input.Player.EquipFragment.performed += context => EquipFragmentPerformed?.Invoke();
             _input.Player.EquipFragment.canceled += context => EquipFragmentCancelled?.Invoke();
-        }
 
+            _input.Player.Click.performed += context => ClickPerformed?.Invoke();
+        }
 
         public Vector2 ReadMovement()
         {
             if (_input.IsNotNull())
-                _input.Player.Move.ReadValue<Vector2>();
+                return _input.Player.Move.ReadValue<Vector2>();
 
-            Debug.LogError($"Error while reading player movement input from {this} class");
-
+            Debug.LogError($"[MobileInputService] Cannot read movement.");
             return Vector2.zero;
         }
 
         public Vector2 ReadZoom()
         {
             if (_input.IsNotNull())
-                
                 return _input.Player.Zoom.ReadValue<Vector2>();
-            
-            Debug.LogError($"Error while reading player zoom input from {this} class");
 
+            Debug.LogError($"[MobileInputService] Cannot read zoom.");
             return Vector2.zero;
         }
 
         public Vector2 ReadCameraRotation()
         {
             if (_input.IsNotNull())
-                
                 return _input.Player.CameraRotation.ReadValue<Vector2>();
-            
-            Debug.LogError($"Error while reading player read camera rotaion input from {this} class");
 
+            Debug.LogError($"[MobileInputService] Cannot read camera rotation.");
             return Vector2.zero;
         }
 

@@ -6,5 +6,6 @@ namespace _Project.CodeBase.Runtime.Features.Camera.Behaviours
     {
         Transform Transform { get; }
         Quaternion Rotation { get; }
+        UnityEngine.Camera Current { get; }
     }
 }
