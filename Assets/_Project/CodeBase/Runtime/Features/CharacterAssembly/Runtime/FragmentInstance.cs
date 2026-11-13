@@ -8,17 +8,19 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Runtime
         public Guid InstanceId { get; }
         public FragmentDefinitionConfig DefinitionConfig { get; }
         public DateTime CreatedAt { get; }
-        
+
         public Guid? OwnerId { get; private set; }
         public bool IsEquipped { get; private set; }
         public float Durability { get; private set; }
         public FragmentStats CustomModifiers { get; private set; }
 
-        public float MaxDurability => 
+        public float MaxDurability =>
             DefinitionConfig != null ? DefinitionConfig.MaxDurability : 0f;
+
         public bool IsBroken =>
             Durability <= 0f;
-        public bool IsOwned => 
+
+        public bool IsOwned =>
             OwnerId.HasValue;
 
         public FragmentInstance(Guid instanceId, FragmentDefinitionConfig definitionConfig, DateTime createdAt)
@@ -29,16 +31,16 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Runtime
             InstanceId = instanceId;
             DefinitionConfig = definitionConfig;
             CreatedAt = createdAt;
-            
+
             Durability = definitionConfig.MaxDurability;
             CustomModifiers = default;
         }
-        
-        public FragmentInstance Create(FragmentDefinitionConfig definitionConfig) => 
+
+        public FragmentInstance Create(FragmentDefinitionConfig definitionConfig) =>
             new FragmentInstance(Guid.NewGuid(), definitionConfig, DateTime.UtcNow);
 
 
-        public void SetOwner(Guid ownerId) => 
+        public void SetOwner(Guid ownerId) =>
             OwnerId = ownerId;
 
         public void ClearOwner()
@@ -46,8 +48,8 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Runtime
             OwnerId = null;
             IsEquipped = false;
         }
-        
-        
+
+
         public void MarkEquipped()
         {
             if (!IsOwned)
@@ -57,10 +59,10 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Runtime
             IsEquipped = true;
         }
 
-        public void MarkUnequipped() => 
+        public void MarkUnequipped() =>
             IsEquipped = false;
-        
-        
+
+
         public void ApplyWear(float amount)
         {
             if (amount <= 0f) return;
@@ -73,21 +75,21 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Runtime
             Durability = Math.Min(MaxDurability, Durability + amount);
         }
 
-        public void RestoreFullDurability() => 
+        public void RestoreFullDurability() =>
             Durability = MaxDurability;
 
 
-        public void ApplyModifiers(FragmentStats modifiers) => 
+        public void ApplyModifiers(FragmentStats modifiers) =>
             CustomModifiers = CustomModifiers.Add(modifiers);
 
-        public void ResetModifiers() => 
+        public void ResetModifiers() =>
             CustomModifiers = default;
-        
+
         public FragmentStats GetTotalStats()
         {
             var baseStats = DefinitionConfig.BaseStats;
             var total = baseStats.Add(CustomModifiers);
-            
+
             if (MaxDurability > 0f)
             {
                 float durabilityFactor = Durability / MaxDurability;
@@ -96,7 +98,7 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Runtime
 
             return total;
         }
-        
+
         public bool IsCompatibleWith(SlotType slotType)
         {
             var compatible = DefinitionConfig.CompatibleSlots;
@@ -106,13 +108,14 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Runtime
             {
                 if (compatible[i] == slotType) return true;
             }
+
             return false;
         }
 
-        public override bool Equals(object obj) => 
+        public override bool Equals(object obj) =>
             obj is FragmentInstance other && InstanceId.Equals(other.InstanceId);
 
-        public override int GetHashCode() => 
+        public override int GetHashCode() =>
             InstanceId.GetHashCode();
 
         public override string ToString()

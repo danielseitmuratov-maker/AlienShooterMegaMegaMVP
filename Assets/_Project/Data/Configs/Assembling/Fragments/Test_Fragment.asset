@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c3776bf417746e6b024fd154569b51f, type: 3}
-  m_Name: FragmentDefinitionConfig
+  m_Name: Test_Fragment
   m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Runtime.Features.CharacterAssembly.Data.Fragments.FragmentDefinitionConfig
   <Id>k__BackingField: 1
   <DisplayName>k__BackingField: df
@@ -18,8 +18,8 @@ MonoBehaviour:
   <Icon>k__BackingField: {fileID: 21300000, guid: e55882f12a4f34a7096b8048c8245a3e, type: 3}
   <Type>k__BackingField: 1
   <Rarity>k__BackingField: 6
-  <CompatibleSlots>k__BackingField: 
-  <Mesh>k__BackingField: {fileID: 919132149155446097, guid: 0611e934a5dee404892cc9049994e6cb, type: 3}
+  <CompatibleSlots>k__BackingField: 00000000
+  <Mesh>k__BackingField: {fileID: 919132149155446097, guid: 2034530f874384beeb0bb4a6be492000, type: 3}
   <BaseStats>k__BackingField:
     DamageBonus: 0
     AttackSpeedBonus: 0

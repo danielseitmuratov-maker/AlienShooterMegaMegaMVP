@@ -14,16 +14,18 @@ namespace _Project.CodeBase.Infrastructure.GameStates.States
     public class GameLoopState : IGameState
     {
         private readonly IPlayerSpawner _playerSpawner;
+        private readonly IStartingFragmentsProvider _fragmentsProvider;
         private readonly AssemblyCharacterConfig _assemblyConfig;
         private readonly GameLoopConfig _config;
 
         private IPlayerFacade _player;
         private CancellationTokenSource _cts;
 
-        public GameLoopState(IPlayerSpawner playerSpawner, AssemblyCharacterConfig assemblyConfig,
-            GameLoopConfig config)
+        public GameLoopState(IPlayerSpawner playerSpawner, IStartingFragmentsProvider fragmentsProvider,
+            AssemblyCharacterConfig assemblyConfig, GameLoopConfig config)
         {
             _playerSpawner = playerSpawner;
+            _fragmentsProvider = fragmentsProvider;
             _assemblyConfig = assemblyConfig;
             _config = config;
         }
@@ -35,7 +37,7 @@ namespace _Project.CodeBase.Infrastructure.GameStates.States
             try
             {
                 Quaternion rotation = Quaternion.Euler(_config.StartPlayerRotation);
-                IReadOnlyList<FragmentInstance> fragments = GetStartingFragments();
+                IReadOnlyList<FragmentInstance> fragments = _fragmentsProvider.GetStartingFragments();
 
                 _player = await _playerSpawner.SpawnAsync(
                     _assemblyConfig,
@@ -70,8 +72,5 @@ namespace _Project.CodeBase.Infrastructure.GameStates.States
                 _player = null;
             }
         }
-
-        private IReadOnlyList<FragmentInstance> GetStartingFragments() => 
-            Array.Empty<FragmentInstance>();
     }
 }

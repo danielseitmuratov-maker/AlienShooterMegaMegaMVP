@@ -61,11 +61,8 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Assembly
             }
         }
 
-        public async UniTask<bool> AttachFragmentAsync(
-            CharacterInstance character,
-            FragmentInstance fragment,
-            string slotId,
-            CancellationToken token)
+        public async UniTask<bool> AttachFragmentAsync(CharacterInstance character, FragmentInstance fragment,
+            string slotId, CancellationToken token)
         {
             if (character == null || fragment?.DefinitionConfig == null)
                 return false;
@@ -93,12 +90,11 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Assembly
 
             token.ThrowIfCancellationRequested();
 
+            await UniTask.Yield();
             return AttachVisual(character, fragment, slot.Value, slotId);
         }
 
-        public UniTask<FragmentInstance> DetachFragmentAsync(
-            CharacterInstance character,
-            string slotId,
+        public UniTask<FragmentInstance> DetachFragmentAsync(CharacterInstance character, string slotId,
             CancellationToken token)
         {
             if (character == null)
@@ -118,11 +114,8 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Assembly
             return UniTask.FromResult(fragment);
         }
 
-        private async UniTask AttachFragmentsAsync(
-            AssemblyCharacterConfig config,
-            CharacterInstance character,
-            IReadOnlyList<FragmentInstance> fragments,
-            CancellationToken token)
+        private async UniTask AttachFragmentsAsync(AssemblyCharacterConfig config, CharacterInstance character,
+            IReadOnlyList<FragmentInstance> fragments, CancellationToken token)
         {
             for (int i = 0; i < fragments.Count; i++)
             {
@@ -173,25 +166,51 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Assembly
             visual.transform.localPosition = slot.AttachOffset;
             visual.transform.localRotation = Quaternion.Euler(slot.AttachEuler);
 
+            CompensateParentScale(visual.transform, bone);
+
             character.AddEquipment(slotId, fragment, visual);
             return true;
         }
 
-        private static SlotDefinition? FindSlotById(AssemblyCharacterConfig config, string slotId)
+        private void CompensateParentScale(Transform visual, Transform bone)
+        {
+            Vector3 parentScale = bone.lossyScale;
+
+            if (Mathf.Approximately(parentScale.x, 0f) || 
+                Mathf.Approximately(parentScale.y, 0f) ||
+                Mathf.Approximately(parentScale.z, 0f))
+            {
+                Debug.LogWarning(
+                    $"[CharacterAssembler] Bone '{bone.name}' has zero lossyScale, " +
+                    $"cannot compensate.");
+                return;
+            }
+
+            Vector3 localScale = visual.localScale;
+
+            localScale = new Vector3(
+                localScale.x / parentScale.x,
+                localScale.y / parentScale.y,
+                localScale.z / parentScale.z);
+            visual.localScale = localScale;
+
+            Debug.Log(
+                $"[Attach] {visual.name} → {bone.name}, " +
+                $"compensated: localScale={localScale}, " +
+                $"lossyScale={visual.lossyScale}");
+        }
+
+        private SlotDefinition? FindSlotById(AssemblyCharacterConfig config, string slotId)
         {
             for (int i = 0; i < config.Slots.Count; i++)
-            {
                 if (config.Slots[i].SlotId == slotId)
                     return config.Slots[i];
-            }
 
             return null;
         }
 
-        private static SlotDefinition? FindFreeCompatibleSlot(
-            AssemblyCharacterConfig config,
-            CharacterInstance character,
-            FragmentInstance fragment)
+        private SlotDefinition? FindFreeCompatibleSlot(AssemblyCharacterConfig config,
+            CharacterInstance character, FragmentInstance fragment)
         {
             List<SlotType> compatible = fragment.DefinitionConfig.CompatibleSlots;
             if (compatible == null || compatible.Count == 0)
@@ -213,9 +232,7 @@ namespace _Project.CodeBase.Runtime.Features.CharacterAssembly.Assembly
             return null;
         }
 
-        private static bool ValidateInput(
-            AssemblyCharacterConfig config,
-            Transform skeletonRoot,
+        private bool ValidateInput(AssemblyCharacterConfig config, Transform skeletonRoot,
             IReadOnlyList<FragmentInstance> fragments)
         {
             if (config == null)

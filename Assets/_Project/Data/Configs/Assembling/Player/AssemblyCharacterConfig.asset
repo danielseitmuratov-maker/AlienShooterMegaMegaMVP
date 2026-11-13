@@ -14,10 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Runtime.Features.CharacterAssembly.Data.Character.AssemblyCharacterConfig
   <Id>k__BackingField: player_id
   <DisplayName>k__BackingField: James
-  <RootBone>k__BackingField: {fileID: 7669940227853763417, guid: 5e52f705fdd794f56b582747e06599f9, type: 3}
   <Slots>k__BackingField:
   - <SlotId>k__BackingField: head_v1
     <SlotType>k__BackingField: 0
-    <BoneName>k__BackingField: head_v1
-    <AttachOffset>k__BackingField: {x: 1, y: 1, z: 1}
+    <BoneName>k__BackingField: Head_Attachment_Point
+    <AttachOffset>k__BackingField: {x: 0, y: 0, z: 0}
     <AttachEuler>k__BackingField: {x: 0, y: 0, z: 0}

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb3f5d8888040b88cd4969ed6baa48d, type: 3}
   m_Name: CameraFollowConfig
   m_EditorClassIdentifier: Assembly-CSharp::_Project.CodeBase.Configs.Camera.CameraFollowConfig
-  <Offset>k__BackingField: {x: 0, y: 12, z: 10}
+  <Offset>k__BackingField: {x: -7, y: 10, z: 0}
   <SmoothTime>k__BackingField: 0.25

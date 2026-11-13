@@ -3,6 +3,7 @@ using _Project.CodeBase.Runtime.Features.Camera.Behaviours;
 using _Project.CodeBase.Runtime.Features.CharacterAssembly.Assembly;
 using _Project.CodeBase.Runtime.Features.CharacterAssembly.Equip;
 using _Project.CodeBase.Runtime.Features.CharacterAssembly.Events;
+using _Project.CodeBase.Runtime.Features.CharacterAssembly.Factories;
 using _Project.CodeBase.Runtime.Features.CharacterAssembly.Presentation;
 using _Project.CodeBase.Runtime.Features.Levels;
 using _Project.CodeBase.Runtime.Features.Player.Behaviours;
@@ -35,11 +36,11 @@ namespace _Project.CodeBase.Infrastructure.Installers.GameLoop
         {
             Container.Bind<ICharacterAssembler>().To<CharacterAssembler>().AsSingle();
             Container.Bind<ICharacterDisassembler>().To<CharacterDisassembler>().AsSingle();
-            
             Container.Bind<ICharacterAssemblyEvents>().To<CharacterAssemblyEvents>().AsSingle();
             Container.Bind<IFragmentEquipService>().To<FragmentEquipService>().AsSingle();
-
             Container.Bind<IFragmentSelectionService>().To<FragmentSelectionService>().AsSingle();
+            Container.Bind<IFragmentInstanceFactory>().To<FragmentInstanceFactory>().AsSingle();
+            Container.Bind<IStartingFragmentsProvider>().To<StartingFragmentsProvider>().AsSingle();
             
             Container
                 .BindInterfacesAndSelfTo<FragmentEquipAnimator>()
