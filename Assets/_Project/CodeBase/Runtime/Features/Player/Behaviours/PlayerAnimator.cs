@@ -43,7 +43,6 @@ namespace _Project.CodeBase.Runtime.Features.Player.Behaviours
         private void OnJumped()
         {
             _animator.SetTrigger(JumpHash);
-            Debug.Log("animator on jumped");
         }
         
         public void Dispose()

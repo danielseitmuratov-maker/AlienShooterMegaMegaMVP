@@ -12,7 +12,10 @@ namespace _Project.CodeBase.Infrastructure.Services.Input
         event Action CrouchCanceled;
         event Action EquipFragmentPerformed;
         event Action EquipFragmentCancelled;
+
+        event Action ClickPerformed;
         
+
         Vector2 ReadMovement();
         Vector2 ReadZoom();
         Vector2 ReadCameraRotation();

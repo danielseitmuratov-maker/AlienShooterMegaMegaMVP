@@ -1,79 +1,58 @@
 using System;
 using System.Threading;
 using _Project.CodeBase.Infrastructure.Services.Input;
-using _Project.CodeBase.Runtime.Features.CharacterAssembly.Equip;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
-using Zenject;
+using Unity.VisualScripting;
 
 namespace _Project.CodeBase.Runtime.Features.Player.Behaviours
 {
     public sealed class PlayerFragmentsEquipper : IInitializable, IDisposable
     {
-        private readonly IFragmentEquipService _fragmentEquipService;
-        private readonly IFragmentSelectionService _selection;
+        private readonly IPlayerEquipper _equipper;
         private readonly IInputService _inputService;
-        private readonly IPlayerProvider _playerProvider;
 
         private CancellationTokenSource _cts;
+        private bool _isEquipping;
 
-        public PlayerFragmentsEquipper(IFragmentEquipService fragmentEquipService, IFragmentSelectionService selection,
-            IInputService inputService, IPlayerProvider playerProvider)
+        public PlayerFragmentsEquipper(IPlayerEquipper equipper, IInputService inputService)
         {
-            _fragmentEquipService = fragmentEquipService;
-            _selection = selection;
+            _equipper = equipper;
             _inputService = inputService;
-            _playerProvider = playerProvider;
         }
 
         public void Initialize()
         {
             _cts = new CancellationTokenSource();
-            SubscribeToEvents();
+            _inputService.EquipFragmentPerformed += OnEquipTriggered;
         }
-        
 
-        private void SubscribeToEvents() =>
-            _inputService.EquipFragmentPerformed += OnEquipFragmentPerformed;
-
-        private void UnsubscribeFromEvents() =>
-            _inputService.EquipFragmentPerformed -= OnEquipFragmentPerformed;
-
-        private void OnEquipFragmentPerformed() =>
-            EquipSelectedAsync().Forget();
-
-        private async UniTask EquipSelectedAsync()
-        {
-            if (!_selection.HasSelection)
-            {
-                Debug.LogWarning("[Equipper] No fragment or slot selected.");
-                return;
-            }
-
-            IPlayerFacade player = _playerProvider.Current;
-            if (player?.Character == null)
-            {
-                Debug.LogWarning("[Equipper] No player or character.");
-                return;
-            }
-
-            bool success = await _fragmentEquipService.EquipAsync(
-                player.Character,
-                _selection.SelectedFragment,
-                _selection.TargetSlotId,
-                _cts.Token);
-
-            if (success)
-                _selection.Clear();
-        }
-        
         public void Dispose()
         {
-            UnsubscribeFromEvents();
-            
+            _inputService.EquipFragmentPerformed -= OnEquipTriggered;
             _cts?.Cancel();
             _cts?.Dispose();
             _cts = null;
+        }
+
+        private void OnEquipTriggered() => 
+            EquipAsync().Forget();
+
+        private async UniTaskVoid EquipAsync()
+        {
+            if (_isEquipping)
+                return;
+
+            _isEquipping = true;
+            
+            try
+            {
+                await _equipper.EquipSelectedAsync(_cts.Token);
+            }
+            catch (OperationCanceledException) { }
+            finally
+            {
+                _isEquipping = false;
+            }
         }
     }
 }
